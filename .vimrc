@@ -58,8 +58,7 @@ let g:airline#extensions#tabline#bufer_nr_show = 0 " Show bufer number
 let g:airline#extensions#tabline#fnametruncate = 16 " Show bufer number
 let g:airline#extensions#tabline#fnamecollapse = 2  " Show bufer number
 let g:airline#extensions#tabline#buffer_idx_mode = 1 "  * enable/disable displaying index of the buffer.
-nmap <Leader>p <Plug>AirlineSelectPrevTab       
-nmap <Leader>n <Plug>AirlineSelectNextTab       
+    
 
 " Set left separator which are not editting
 let g:airline#extensions#tabline#left_alt_sep = '' 
@@ -137,6 +136,9 @@ nnoremap <leader>7 :call te#utils#tab_buf_switch(7)<cr>
 nnoremap <leader>8 :call te#utils#tab_buf_switch(8)<cr>
 "" tab or buf 9
 nnoremap <leader>9 :call te#utils#tab_buf_switch(9)<cr>
+"" tab or buf Previous/Next
+nmap <Leader>p <Plug>AirlineSelectPrevTab       
+nmap <Leader>n <Plug>AirlineSelectNextTab  
 
 " tabline
 " Always display tab page
