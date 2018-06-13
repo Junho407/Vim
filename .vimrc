@@ -1,8 +1,35 @@
 set nocompatible    "be iMproved, required
-filetype off        "required
-"map <f9> :Tlist<CR>
-" set the runtime path to include Vundle and initialize
-
+syntax on
+filetype off       "required
+" Set Vundle and initialize related runtime path
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'gnattishness/cscope_maps'
+" Install Git toolkit
+Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
+" Install NERDTree package"
+Plugin 'scrooloose/nerdtree'
+" Install Taglist "
+Plugin 'taglist.vim'
+" Install NERDTree Tabs package "
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'majutsushi/tagbar'
+Plugin 'tracyone/vinux'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/Mark--Karkat' 
+Plugin 'vim-scripts/OmniCppComplete' 
+Plugin 'kshenoy/vim-signature' 
+" Colorscheme 
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'sickill/vim-monokai'
+Plugin 'skielbasa/vim-material-monokai'
+" Lookup file
+Plugin 'genutils'
+Plugin 'lookupfile'
+call vundle#end() "Required
 filetype plugin indent on    "required
 
 function! RunShell(Msg, Shell)
@@ -11,28 +38,28 @@ function! RunShell(Msg, Shell)
     echo 'done'
 endfunction
 
+" set leader key <leader>
+let mapleader = "\<Space>"
 
 call te#feat#feat_enable('g:feat_enable_basic', 1)
 call te#feat#feat_enable('g:feat_enable_airline', 1)
 call te#feat#feat_enable('g:feat_enable_gui', 1)
 
-"" set leader key <leader>
-let mapleader = "\<Space>"
 " [ PLUGINS    ] =================================================
-" pathogen ----------------------------------------------------{{{2
-execute pathogen#infect()
-filetype plugin indent on " required
-" Source Explorer(srcExpl) ------------------------------------{{{2
-" Tagbar  -----------------------------------------------------{{{2
-nmap <F8> :TagbarToggle<CR>
-" Taglist  ----------------------------------------------------{{{2
-nnoremap <F3> :TlistToggle<CR>
 "  Nerdtree ---------------------------------------------------{{{2
 nnoremap <F2> :NERDTreeToggle<CR>
-" " Generate filename tags ------------------------------------{{{2
+"  Taglist  ---------------------------------------------------{{{2
+nnoremap <F3> :TlistToggle<CR>
+" Tagbar  -----------------------------------------------------{{{2
+" -----  <F5> :Lookup file used -------------------------------{{{2
+nmap <F8> :TagbarToggle<CR>
+" Taglist  ----------------------------------------------------{{{2
+
+" Generate filename tags ------------------------------------{{{2
 nmap <F9>  :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q.")<cr>
 nmap <F10> :!cscope -bqi $CSCOPE_DIR/cscope.files -f $CSCOPE_DB<CR>:cs add $CSCOPE_DB<CR>:cs reset<CR><CR>
 nmap <F11> :call RunShell("Generate cscope file and lookup filename tags", "gencscope.sh && genfiletags.sh")<cr>
+
 " Lookupfile  ----------------------------------------------------{{{2
 let g:LookupFile_MinPatLength = 2
 let g:LookupFile_PreserveLastPattern = 0
@@ -90,58 +117,32 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-function! te#utils#tab_buf_switch(num) abort
-    if exists('g:feat_enable_airline') && g:feat_enable_airline == 1
-        execute 'normal '."\<Plug>AirlineSelectTab".a:num
-    else
-        if exists( '*tabpagenr' ) && tabpagenr('$') != 1
-            Tab support && tabs open
-            execute 'normal '.a:num.'gt'
-        else
-            let l:temp=a:num
-            let l:buf_index=a:num
-            let l:buf_count=len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-            if l:temp > l:buf_count
-                return
-            endif
-            while l:buf_index != 0
-                while !buflisted(l:temp)
-                    let l:temp += 1
-                endw
-                let l:buf_index -= 1
-                if l:buf_index != 0
-                    let l:temp += 1
-                endif
-            endw
-            execute ':'.l:temp.'b'
-        endif
-    endif
-endfunction
 
-"" Key binding
-"" tab or buf 1
-nnoremap <leader>1 :call te#utils#tab_buf_switch(1)<cr>
-"" tab or buf 2
-nnoremap <leader>2 :call te#utils#tab_buf_switch(2)<cr>
-"" tab or buf 3
-nnoremap <leader>3 :call te#utils#tab_buf_switch(3)<cr>
-"" tab or buf 4
-nnoremap <leader>4 :call te#utils#tab_buf_switch(4)<cr>
-"" tab or buf 5
-nnoremap <leader>5 :call te#utils#tab_buf_switch(5)<cr>
-"" tab or buf 6
-nnoremap <leader>6 :call te#utils#tab_buf_switch(6)<cr>
-"" tab or buf 7
-nnoremap <leader>7 :call te#utils#tab_buf_switch(7)<cr>
-"" tab or buf 8
-nnoremap <leader>8 :call te#utils#tab_buf_switch(8)<cr>
-"" tab or buf 9
-nnoremap <leader>9 :call te#utils#tab_buf_switch(9)<cr>
+" Key binding
+" tab or buf 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+" tab or buf 2
+nmap <leader>2 <Plug>AirlineSelectTab2
+" tab or buf 3 <Plug>AirlineSelectTab3
+nmap <leader>3 <Plug>AirlineSelectTab3
+" tab or buf 4 <Plug>AirlineSelectTab4
+nmap <leader>4 <Plug>AirlineSelectTab4
+" tab or buf 5 <Plug>AirlineSelectTab5
+nmap <leader>5 <Plug>AirlineSelectTab5
+" tab or buf 6 <Plug>AirlineSelectTab6
+nmap <leader>6 <Plug>AirlineSelectTab6
+" tab or buf 7 <Plug>AirlineSelectTab7
+nmap <leader>7 <Plug>AirlineSelectTab7
+" tab or buf 8 <Plug>AirlineSelectTab8
+nmap <leader>8 <Plug>AirlineSelectTab8
+" tab or buf 9 <Plug>AirlineSelectTab9
+nmap <leader>9 <Plug>AirlineSelectTab9
+" tab or buf previous/next
+nmap <leader>pp <Plug>AirlineSelectPrevTab
+nmap <leader>nn <Plug>AirlineSelectNextTab
 "" tab or buf Previous/Next
-nmap <Leader>p <Plug>AirlineSelectPrevTab       
-nmap <Leader>n <Plug>AirlineSelectNextTab  
 
-" tabline
+" Tabline -----------------------------------------------------{{{2
 " Always display tab page
 "set showtabline=2
 " GUI use pure text to display tab page
@@ -154,6 +155,7 @@ set guioptions-=R  " remove right-hand scroll bar
 set guioptions-=l  " remove left-hand scroll bar(Left of split windows)
 set guioptions-=L  " remove left-hand scroll bar
 set guioptions-=e  " add Tab-page
+
 " Colorscheme -------------------------------------------------{{{2
 " Colorscheme 1: [Papercolor]
 set t_Co=256   " This is may or may not need
@@ -179,10 +181,11 @@ set background=dark
 nnoremap <Leader>q :q!<CR>
 " ,s - Save document
 nnoremap <Leader>s :w<CR>
-" ,o - Open new document
-nnoremap <Leader>o :CtrlP<CR>a
+" ,x - Open new document
+nnoremap <Leader>x :qa!<CR>
 
 " [ VIM EDITOR ] ==============================================
+set omnifunc=syntaxcomplete#Complete
 syntax on
 set ruler
 set showmode
@@ -232,11 +235,3 @@ nnoremap + <C-W>+
 nnoremap - <C-W>-
 nnoremap <RIGHT> <C-W><
 nnoremap <LEFT> <C-W>>
-
-
-" map hotkey ciw <C-R> 0 <Esc> replace the word and press '.' to repeat 
-map <leader>rr ciw<C-r>0<Esc>
-set cscopetag
-set csto=0
-
-set cscopeverbose
