@@ -31,7 +31,7 @@ nnoremap <F3> :TlistToggle<CR>
 nnoremap <F2> :NERDTreeToggle<CR>
 " " Generate filename tags ------------------------------------{{{2
 nmap <F9>  :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q.")<cr>
-nmap <F10> :!cscope -2_cli -i tap0 save_configbqi $CSCOPE_DIR/cscope.files -f $CSCOPE_DB<CR>:cs add $CSCOPE_DB<CR>:cs reset<CR><CR>
+nmap <F10> :!cscope -bqi $CSCOPE_DIR/cscope.files -f $CSCOPE_DB<CR>:cs add $CSCOPE_DB<CR>:cs reset<CR><CR>
 nmap <F11> :call RunShell("Generate cscope file and lookup filename tags", "gencscope.sh && genfiletags.sh")<cr>
 " Lookupfile  ----------------------------------------------------{{{2
 let g:LookupFile_MinPatLength = 2
