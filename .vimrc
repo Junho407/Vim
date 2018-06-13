@@ -101,16 +101,6 @@ let g:airline#extensions#tagbar#enabled = 1
 "* enable/disable detection of whitespace errors. >      
 "let g:airline#extensions#whitespace#enabled = 1
 
-" Set left separator
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-" the separator used on the left side
-let g:airline_left_sep='▶'
-" the separator used on the right side
-let g:airline_right_sep='◀'
-" themes are automatically selected based on the matching colorscheme. this
-" can be overridden by defining a value
-" Always show the status line
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h24 "config font for vim
 "set guifont=Meslo\ LG\ S\ Regular\ for\ Powerline:h28 "config font for vim
 if !exists('g:airline_symbols')
