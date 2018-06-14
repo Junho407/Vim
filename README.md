@@ -5,7 +5,7 @@
   export CSCOPE_DIR=$PWD/project  
   export CSCOPE_DB=$CSCOPE_DIR/cscope.out  
   export PATH=$PATH:~/.vim/shell  
-#### Note: please source .bashrc again or relogin to update enviroment variable.
+#### Note: please source .bashrc again or relogin to update environment variable.
 ### Put script files to shell directory
 Put  genscope.sh and genfiletag.sh to /.vim/shell  
 If the directory "shell" is not exist, please create this file   
