@@ -1,7 +1,6 @@
 ## Personalize vim to become a vim master
 
 ### Update .bashrc
-.bashrc
   export CSCOPE_EDITOR=vim  
   export CSCOPE_DIR=$PWD/project  
   export CSCOPE_DB=$CSCOPE_DIR/cscope.out  
