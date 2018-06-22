@@ -66,9 +66,14 @@ let g:LookupFile_PreserveLastPattern = 0
 let g:LookupFile_PreservePatternHistory = 1
 let g:LookupFile_AlwaysAcceptFirst = 1
 let g:LookupFile_AllowNewFiles = 0
-if filereadable("./filenametags" )
-    let g:LookupFile_TagExpr = '"./filenametags"'
-endif
+if filereadable("./filenametags")
+    let g:LookupFile_TagExpr = '"./filenametags"' 
+else   
+    echo " Create cscope directory..." $CSCOPE_DIR    
+    call mkdir($CSCOPE_DIR, "p")  
+endif  
+
+
 nmap <silent><leader>lk :LUTags<cr>
 nmap <silent><leader>ll :LUBufs<cr>
 nmap <silent><leader>lw :LUWalk<cr>
@@ -175,7 +180,6 @@ nnoremap <Leader>s :w<CR>
 nnoremap <Leader>x :qa!<CR>
 
 " [ VIM EDITOR ] ==============================================
-set omnifunc=syntaxcomplete#Complete
 syntax on
 set ruler
 set showmode
@@ -217,11 +221,41 @@ nnoremap N nzz
 nnoremap n nzz
 "" ESC mapping
 inoremap jk <ESC>
-"" tab switch
-nnoremap <C-h> gT
-nnoremap <C-l> gt
+
 "" adjust window size
 nnoremap + <C-W>+
 nnoremap - <C-W>-
 nnoremap <RIGHT> <C-W><
 nnoremap <LEFT> <C-W>>
+
+" Quick fix windows setting-----------------------------------{{{2
+set cscopequickfix=s-,c-,i-,t-,d-,e-,f-       
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>e :call ToggleList("Quickfix List", 'c')<CR>
