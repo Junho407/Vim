@@ -56,7 +56,7 @@ nmap <F8> :TagbarToggle<CR>
 " Taglist  ----------------------------------------------------{{{2
 
 " Generate filename tags ------------------------------------{{{2
-nmap <F9>  :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q.")<cr>
+nmap <F9>  :call RunShell("Generate tags", "rm -fr tags && ctags --langmap=c:.c.h --languages=c -R --exclude=@.ctagsignore --fields=+iaS --extra=+q --sort=yes")<cr>
 nmap <F10> :!cscope -bqi $CSCOPE_DIR/cscope.files -f $CSCOPE_DB<CR>:cs add $CSCOPE_DB<CR>:cs reset<CR><CR>
 nmap <F11> :call RunShell("Generate cscope file and lookup filename tags", "gencscope.sh && genfiletags.sh")<cr>
 
